@@ -8,7 +8,7 @@ function EpisodeCard (props) {
         name,
         air_date,
         episode, 
-        characters,
+        characters
     } = props.episode
 
     return(
