@@ -1,34 +1,31 @@
-import React, {useState, useEffect}  from "react";
+import React from "react";
 import {Card, Icon, Image} from 'semantic-ui-react';
 
-function CharacterCard() {
+function CharacterCard(props) {
 
-  const [characters, setCharacter] = useState([])
+  console.log('props in CharacterCard', props)
 
-  useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character/")
-    .then(res => res.json())
-    .then(characters => {
-      console.log("characters: ", characters);
-      setCharacter(characters.results);
-    })
-    .catch(err => console.log("error fetching data"))
-  }, []);
-
-  console.log('char', characters)
-
+  const {
+    id,
+    image,
+    name, 
+    status,
+    location,
+    origin
+  } = props.character
+  
   return (
   
   <span>
-    {characters.map(character => (
-    <Card key={character.id}>
-    <Image src={character.image} wrapped ui={false} />
+
+    <Card key={id}>
+    <Image src={image} wrapped ui={false} />
     <Card.Content>
-      <Card.Header>{character.name}</Card.Header>
-      <Card.Meta>{character.status}</Card.Meta>
+      <Card.Header>{name}</Card.Header>
+      <Card.Meta>{status}</Card.Meta>
       <Card.Description>
-        {character.location.name}
-        {character.origin.name}
+        {location.name}
+        {origin.name}
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
@@ -37,8 +34,7 @@ function CharacterCard() {
         Episodes
       </a>
     </Card.Content>
-  </Card>
-    ))}
+    </Card>
 
   </span>);
 }
